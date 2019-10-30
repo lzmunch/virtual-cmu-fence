@@ -1,0 +1,41 @@
+body { 
+  margin: 0; 
+}
+canvas { width: 640px; height: 360px }
+#change-orig-button {
+  position: absolute;
+  top: 20px;
+}
+#change-scribble-button {
+  position: absolute;
+  top: 40px;
+}
+
+
+/* This hides all pages */
+.page {
+    display: none;
+}
+
+/* This displays the first page */
+.default {
+    display: block;
+}
+
+/* This displays the page corresponding to the one you clicked on */
+:target {
+    display: block;
+}
+
+/* This hides the default page when another page is clicked */
+:target ~ .default {
+    display: none;
+}
+
+.page-link{
+  padding: 10px;
+}
+
+#home {
+  text-align: center;
+}
