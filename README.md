@@ -1,7 +1,8 @@
-# Three.js boilerplate
-This is a simple three.js boilerplate for new projects, feel free to contribute!
+# CMU Virtual Fence Archiver
 
-### Setup
+Copied from three.js boilerplate for new projects. https://github.com/learnthreejs/three-js-boilerplate
+
+### Setup (from learnthhreejs)
 Run the setup script to make the repository your own!
 
 ```bash
