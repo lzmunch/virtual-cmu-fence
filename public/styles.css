@@ -1,7 +1,10 @@
 body { 
   margin: 0; 
+  font-family: Chivo;
 }
 canvas { width: 640px; height: 360px }
+
+/*
 #change-orig-button {
   position: absolute;
   top: 20px;
@@ -10,6 +13,11 @@ canvas { width: 640px; height: 360px }
   position: absolute;
   top: 40px;
 }
+#change-fence-button {
+  position: absolute;
+  top: 60px;
+}
+*/
 
 
 /* This hides all pages */
@@ -38,4 +46,8 @@ canvas { width: 640px; height: 360px }
 
 #home {
   text-align: center;
+}
+
+#imports{
+  
 }

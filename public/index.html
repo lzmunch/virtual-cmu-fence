@@ -1,26 +1,49 @@
 <html>
 	<head>
-		<title>Three.js Boilerplate</title>
-		<style>
-			body { margin: 0; }
-			canvas { width: 640px; height: 360px }
-          #change-orig-button {
-            position: absolute;
-            top: 20px;
-          }
-          #change-scribble-button {
-            position: absolute;
-            top: 40px;
-          }
-		</style>
-	</head>
-	<body>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
+		<title>Virtual Fence</title>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chivo">
+        <link rel="stylesheet" type="text/css" href="styles.css">
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
 		<script src="assets/OrbitControls.js"></script>
 		<script src="assets/OBJLoader.js"></script>
 		<script src="assets/MTLLoader.js"></script>
-		<script src="/scripts.js"></script>
+      
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	</head>
+	<body>
+      <script src="/scripts.js"></script>
+      <nav> 
+        <a href="#home">Home</a>
+<!--
+        <a href="#gallery">Gallery</a>
+        <a href="#paint">Paint</a>
+        <a href="#import">Import</a>
+-->
+      </nav>
+      <div id="gallery" class="page"> a gallery wow </div>
+      <div id="paint" class="page"> paint all the things </div>
+      <div id="import" class="page"> 
+        <p>importtttts </p>
+        <form id="file-form" action="handler.php" method="POST">
+          <input type="file" id="file-select" name="photos[]" multiple/>
+          <button type="submit" id="upload-button">Upload</button>
+        </form>
         <button id="change-orig-button" onclick="changeToOriginal()">Change to orig</button>
         <button id="change-scribble-button" onclick="changeToScribble()">Change to scribble</button>
+        <button id="change-fence-button" onclick="changeToFence()">Change to fence</button>
+      </div>
+      <div id="home" class="page">
+        <p>{ virtual fence }</p>
+<!--
+        <div><a href="#paint">Paint</a></div>
+        <div><a href="#import">Import</a></div>
+        <div><a href="#gallery">Gallery</a></div>
+-->
+        <a class="page-link" href="#paint">Paint</a>
+        <a class="page-link" href="#import">Import</a>
+        <a class="page-link" href="#gallery">Gallery</a>
+      </div>
 	</body>
 </html>

@@ -1,38 +1,16 @@
-/*
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
-
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-var cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
-camera.position.z = 5;
-
-var animate = function () {
-	requestAnimationFrame( animate );
-
-	cube.rotation.x += 0.1;
-	cube.rotation.y += 0.1;
-
-	renderer.render(scene, camera);
-};
-
-animate();
-*/
-
 var scene = new THREE.Scene();
 
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 camera.position.z = 100;
 
 var renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+//renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( 400, 400 );
+//document.body.appendChild( renderer.domElement );
+$( function() {
+  document.getElementById("import").appendChild( renderer.domElement );
+});
+
 
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -98,6 +76,11 @@ function changeToScribble(){
 function changeToOriginal(){
   loadObjMtl('/assets/models/r2-d2/', 
                'r2-d2.obj', 'r2-d2.mtl');
+}
+
+function changeToFence(){
+  loadObjMtl('/assets/models/fence/', 
+               'fence_model_v1.obj', 'fence_model_v1.mtl', );
 }
 
 //TODO
