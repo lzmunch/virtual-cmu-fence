@@ -4,10 +4,23 @@
 		<style>
 			body { margin: 0; }
 			canvas { width: 640px; height: 360px }
+          #change-orig-button {
+            position: absolute;
+            top: 20px;
+          }
+          #change-scribble-button {
+            position: absolute;
+            top: 40px;
+          }
 		</style>
 	</head>
 	<body>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
+		<script src="assets/OrbitControls.js"></script>
+		<script src="assets/OBJLoader.js"></script>
+		<script src="assets/MTLLoader.js"></script>
 		<script src="/scripts.js"></script>
+        <button id="change-orig-button" onclick="changeToOriginal()">Change to orig</button>
+        <button id="change-scribble-button" onclick="changeToScribble()">Change to scribble</button>
 	</body>
 </html>
