@@ -51,3 +51,10 @@ canvas { width: 640px; height: 360px }
 #imports{
   
 }
+
+.menu-icon {
+  width: 100px;
+  height:100px;
+  display: inline-block;
+  padding: 10px;
+}

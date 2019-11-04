@@ -13,37 +13,53 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	</head>
 	<body>
-      <script src="/scripts.js"></script>
+<!--      <script src="/scripts.js"></script>-->
       <nav> 
         <a href="#home">Home</a>
-<!--
-        <a href="#gallery">Gallery</a>
-        <a href="#paint">Paint</a>
-        <a href="#import">Import</a>
--->
       </nav>
       <div id="gallery" class="page"> a gallery wow </div>
       <div id="paint" class="page"> paint all the things </div>
       <div id="import" class="page"> 
-        <p>importtttts </p>
-        <form id="file-form" action="handler.php" method="POST">
-          <input type="file" id="file-select" name="photos[]" multiple/>
-          <button type="submit" id="upload-button">Upload</button>
+        <p>Import image potential ideas </p>
+        <div id="upload-img-div">
+          <form action="/" enctype="multipart/form-data" method="post">
+            <input type="file" name="upload" multiple>
+            <input type="submit" value="Upload">
+          </form>
+          <div id="uploaded-img">
+            <button onclick="showUploadedImage()">show upload</button>
+          </div>
+          <br>
+        </div>
+        <form id="img-url-form">
+          <input type="text" id="img-url-input"/>
+          <button type="submit" id="use-img-button" onclick="changeTex()">Use image</button>
         </form>
-        <button id="change-orig-button" onclick="changeToOriginal()">Change to orig</button>
-        <button id="change-scribble-button" onclick="changeToScribble()">Change to scribble</button>
-        <button id="change-fence-button" onclick="changeToFence()">Change to fence</button>
+        <div id="buttons-div">
+          <button id="change-orig-button" onclick="changeToOriginal()">Change to orig</button>
+          <button id="change-scribble-button" onclick="changeToScribble()">Change to scribble</button>
+          <button id="change-fence-button" onclick="changeToFence()">Change to fence</button>
+        </div>
       </div>
       <div id="home" class="page">
         <p>{ virtual fence }</p>
-<!--
-        <div><a href="#paint">Paint</a></div>
-        <div><a href="#import">Import</a></div>
-        <div><a href="#gallery">Gallery</a></div>
--->
-        <a class="page-link" href="#paint">Paint</a>
-        <a class="page-link" href="#import">Import</a>
-        <a class="page-link" href="#gallery">Gallery</a>
+        
+        <a href="#paint" class="menu-icon">
+          <div class="menu-icon">
+          <img class="menu-icon" src="/assets/images/paint.svg" alt="">
+          </div>
+        </a>
+        <a href="/import.html" class="menu-icon">
+          <div class="menu-icon">
+            <img class="menu-icon" src="/assets/images/paint-from-image.svg" alt="">
+          </div>
+        </a>
+        <a href="#gallery" class="menu-icon">
+          <div class="menu-icon">
+            <img class="menu-icon" src="/assets/images/view-gallery.svg" alt="paint bucket">
+          </div>
+        </a>
+        
       </div>
 	</body>
 </html>
