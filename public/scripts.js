@@ -22,21 +22,32 @@ console.log(mtlFileStr);
 // THREE.js setup
 var scene = new THREE.Scene();
 
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-camera.position.z = 100;
+var renderHeight = window.innerHeight * 0.9;
+var renderWidth = window.innerWidth;
+// var camera = new THREE.PerspectiveCamera( 75, renderWidth/renderHeight, 0.1, 1000 );
+// var camera = new THREE.OrthographicCamera( 75, renderWidth/renderHeight, 0.1, 1000 );
+var camera = new THREE.OrthographicCamera( window.innerWidth / - 50, window.innerWidth / 50, window.innerHeight / 50, window.innerHeight / -50, - 500, 1000); 
+
+
+
+camera.position.z = 17;
+
 
 var renderer = new THREE.WebGLRenderer();
-renderer.setSize( 400, 400 );
+// renderer.setSize( 400, 400 );
+renderer.setSize( renderWidth, renderHeight);
 
 // on document load
 $( function() {
-  document.getElementById("import").appendChild( renderer.domElement );
-  loadObjMtl('/assets/models/r2-d2/', 
-           'r2-d2.obj', 'r2-d2.mtl');
+  document.getElementById("import-canvas").appendChild( renderer.domElement );
+  // loadObjMtl('/assets/models/r2-d2/', 
+           // 'r2-d2.obj', 'r2-d2.mtl');
+  changeToFence();
 });
 
 // controls
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
 controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.enableZoom = true;
@@ -53,7 +64,6 @@ scene.add(fillLight);
 scene.add(backLight);
 
 var origObject, scribbleObject; //can delete original and new objects
-
 // object loading with texture
 // TODO add position
 function loadObjMtl(path, objFile, mtlFile, paths){
@@ -70,8 +80,16 @@ function loadObjMtl(path, objFile, mtlFile, paths){
       objLoader.load(objFile, function (object) {
 
           scene.add(object);
-          object.position.y += 10;
-          object.position.z += 50;
+          // object.position.x = 40;
+          // object.position.z += 35;
+
+          object.rotation.y = Math.PI / 2;
+          // object.position.z = 40;
+
+          // object.rotation.x = Math.PI / 8;
+
+          // object.rotation.z = Math.PI / 8;
+          // object.position.y += 0//10;
           console.log("loaded", object.position);
       });
 
