@@ -78,7 +78,9 @@ button, .button {
 }
 
 #home {
+  transform: translate(0, 60%);
   text-align: center;
+  vertical-align: middle;
 }
 
 #import{
@@ -134,4 +136,10 @@ button {
   font-size: 20px;
   padding: 10px;
   font-weight: bold;
+}
+
+#main-title {
+  font-weight: bold;
+  font-size: 30px;
+  letter-spacing: 2px;
 }
