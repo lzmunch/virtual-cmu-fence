@@ -21,8 +21,8 @@
         <p>Import image potential ideas </p>
         <div id="upload-img-div">
           <form action="/" enctype="multipart/form-data" method="post">
-            <input type="file" name="upload" multiple>
-            <input type="submit" value="Upload">
+            <input id="upload-button" type="file" name="upload">
+            <input class="button" type="submit" value="Upload">
           </form>
           <div id="uploaded-img">
             <button onclick="showUploadedImage()">show upload</button>
@@ -37,6 +37,12 @@
           <button id="change-orig-button" onclick="changeToOriginal()">Change to orig</button>
           <button id="change-scribble-button" onclick="changeToScribble()">Change to scribble</button>
           <button id="change-fence-button" onclick="changeToFence()">Change to fence</button>
+          <button id="change-tex-button" onclick="changeTex()">Change to upload</button>
+        </div>
+        <div id="downloads-div">
+          <a href="assets/uploads/fence_model_v1_upload.mtl" download="fence_model_v1.mtl">Download .mtl </a>
+          <a href="assets/uploads/tex_image.jpg" download="tex_image.jpg">Download texture .jpg </a>
+          <a href="assets/models/fence/fence_model_v1.obj" download="fence_model_v1.obj">Download .obj </a>
         </div>
       </div>
      

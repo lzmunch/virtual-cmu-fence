@@ -11,7 +11,13 @@
 		<script src="assets/MTLLoader.js"></script>
       
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	</head>
+      
+        <script>
+          $( function() {
+            window.location.href = "#home";
+          });
+        </script>
+  </head>
 	<body>
 <!--      <script src="/scripts.js"></script>-->
       <nav> 
@@ -44,19 +50,22 @@
       <div id="home" class="page">
         <p>{ virtual fence }</p>
         
-        <a href="#paint" class="menu-icon">
+        <a href="#paint" class="menu-icon-link">
           <div class="menu-icon">
-          <img class="menu-icon" src="/assets/images/paint.svg" alt="">
+            <img class="menu-icon" src="/assets/icons/paint.svg" alt="">
+            <p>Paint</p>
           </div>
         </a>
-        <a href="/import.html" class="menu-icon">
+        <a href="/import.html" class="menu-icon-link">
           <div class="menu-icon">
-            <img class="menu-icon" src="/assets/images/paint-from-image.svg" alt="">
+            <img class="menu-icon" src="/assets/icons/paint-from-image.svg" alt="">
+            <p>Import</p>
           </div>
         </a>
-        <a href="#gallery" class="menu-icon">
+        <a href="#gallery" class="menu-icon-link">
           <div class="menu-icon">
-            <img class="menu-icon" src="/assets/images/view-gallery.svg" alt="paint bucket">
+            <img class="menu-icon" src="/assets/icons/view-gallery.svg" alt="paint bucket">
+            <p>Gallery</p>
           </div>
         </a>
         

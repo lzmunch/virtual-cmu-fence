@@ -55,7 +55,8 @@ scene.add(backLight);
 var origObject, scribbleObject; //can delete original and new objects
 
 // object loading with texture
-function loadObjMtl(path, objFile, mtlFile, pos, paths){
+// TODO add position
+function loadObjMtl(path, objFile, mtlFile, paths){
   var mtlLoader = new THREE.MTLLoader();
   mtlLoader.setTexturePath(paths ? paths.tex : path);
   mtlLoader.setPath(paths ? paths.mtl : path);
@@ -96,11 +97,21 @@ function changeToFence(){
 // https://i.imgur.com/3lo7B4V.jpg
 // change texture of fence to image url in input field
 function changeTex(){
-  var url = document.getElementById("img-url-input").value;
-  console.log(url);
-  var mtlFile = mtlTexFileStr;
+//  var url = document.getElementById("img-url-input").value;
+//  console.log(url);
+//  var mtlFile = mtlTexFileStr;
+  //  var mtlFile = 'fence_model_v1_scribble.mtl';
+
+  var path = "/assets/uploads/";
+  var mtlFile = 'fence_model_v1_upload.mtl'
   loadObjMtl('/assets/models/fence/', 
-             'fence_model_v1.obj', 'fence_model_v1_scribble.mtl');
+             'fence_model_v1.obj', mtlFile,
+             { 
+               obj: '/assets/models/fence/', 
+               tex: '/assets/uploads/',
+               mtl: '/assets/uploads/'
+             }
+            );
 }
 
 //TODO
