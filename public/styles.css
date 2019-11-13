@@ -3,6 +3,8 @@ body {
   font-family: Chivo !important;
   background-image: url("assets/grid-background.png");
   background-image: repeat-y;
+  padding: 10px;
+  text-align: center;
 /*  background-size: 960px 540px;*/
 }
 /*canvas { width: 640px; height: 360px }*/
@@ -85,4 +87,33 @@ button, .button {
   vertical-align: middle
   padding: 5px;
   text-align: center;
+}
+
+.small-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.page-title {
+  left: 0px;
+  padding:0px;
+  height: 0px;
+  text-align: left;
+}
+
+.page-title-img {
+  height: 30px;
+}
+
+#home-link {
+  text-align: right;
+}
+
+nav {
+  display: float;
+  vertical-align: middle;
+}
+
+button {
+  font-family: inherit;
 }
