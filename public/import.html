@@ -10,6 +10,10 @@
 		<script src="assets/OrbitControls.js"></script>
 		<script src="assets/OBJLoader.js"></script>
 		<script src="assets/MTLLoader.js"></script>
+
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
+    <script src="crop-script.js"></script>
 	</head>
 	<body>
       <script src="/scripts.js"></script>
@@ -23,35 +27,43 @@
         </div>
       </nav>
       <div id="import">
-        <p>Import image potential ideas </p>
+        <p>Download texture template and fit texture image to lines.</p>
+        <div id="uploaded-img">
+          <a href="assets/texture_template.png" download="texture_template.png">Download texture template</a>
+        </div>
+        <p>Upload modified texture image. If model not updated, click 'change to upload'</p>
         <div id="upload-img-div">
           <form action="/" enctype="multipart/form-data" method="post">
             <input id="upload-button" type="file" name="upload">
             <input class="button" type="submit" value="Upload">
           </form>
-          <div id="uploaded-img">
-            <button onclick="showUploadedImage()">show upload</button>
-          </div>
-          <br>
         </div>
-        <form id="img-url-form">
-          <input type="text" id="img-url-input"/>
-          <button type="submit" id="use-img-button" onclick="changeTex()">Use image</button>
-        </form>
-        <div id="buttons-div">
-          <button id="change-orig-button" onclick="changeToOriginal()">Change to orig</button>
-          <button id="change-scribble-button" onclick="changeToScribble()">Change to scribble</button>
-          <button id="change-fence-button" onclick="changeToFence()">Change to fence</button>
-          <button id="change-tex-button" onclick="changeTex()">Change to upload</button>
-        </div>
-        <div id="downloads-div">
-          <a href="assets/uploads/fence_model_v1_upload.mtl" download="fence_model_v1.mtl">Download .mtl </a>
-          <a href="assets/uploads/tex_image.jpg" download="tex_image.jpg">Download texture .jpg </a>
-          <a href="assets/models/fence/fence_model_v1.obj" download="fence_model_v1.obj">Download .obj </a>
-        </div>
-
-        <br>
       </div>
+
+      <div id="img-transform">
+          <p>Uploaded image</p>
+          <img id="crop-img" class="resizable" src="assets/uploads/tex_image.jpg">
+      </div>
+      <br>
+
+      <div id="buttons-div">
+         <button id="change-tex-button" onclick="changeToUpload()">Change to upload</button>
+      </div>
+      <br>
+
+      <div id="downloads-div">
+        <p> Download these files to view your new model offline. Do NOT change file names<br>
+          <!-- default downloads, changed when upload happens -->
+        <a href="assets/uploads/fence.mtl" download="fence.mtl">fence.mtl </a>-- 
+        <a href="assets/uploads/tex_image.jpg" download="tex_image.jpg"> tex_image.jpg </a>--
+        <a href="assets/models/fence/fence.obj" download="fence.obj"> fence.obj </a>
+      </p>
+      </div>
+      <div id="tips">
+        <p> TIPS: Refresh page to update 3D viewer size </p>
+      </div>
+      <br>
+
       <div id="import-canvas"></div>
       <div id="bottom">
         @carnegie-mellon

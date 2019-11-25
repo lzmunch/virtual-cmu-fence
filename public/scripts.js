@@ -1,23 +1,4 @@
-var mtlTexFileStr = "fence_model_v1.jpg";
-var mtlFileStr = 
-  "newmtl Solid\n"+
-  "Ka 1.0 1.0 1.0\n"+
-  "Kd 1.0 1.0 1.0\n"+
-  "Ks 0.0 0.0 0.0\n"+
-  "d 1.0\n"+
-  "Ns 0.0\n"+
-  "illum 0\n"+
-  "\n"+
-  "newmtl fence_model_v1\n"+
-  "Ka 1.0 1.0 1.0\n"+
-  "Kd 1.0 1.0 1.0\n"+
-  "Ks 0.0 0.0 0.0\n"+
-  "d 1.0\n"+
-  "Ns 0.0\n"+
-  "illum 0\n"+
-  "map_Kd " + mtlTexFileStr + "\n";
-
-console.log(mtlFileStr);
+var FENCE_FILENAME = "painting_demo";
 
 // THREE.js setup
 var scene = new THREE.Scene();
@@ -27,45 +8,31 @@ var renderWidth = window.innerWidth;
 // var camera = new THREE.PerspectiveCamera( 75, renderWidth/renderHeight, 0.1, 1000 );
 // var camera = new THREE.OrthographicCamera( 75, renderWidth/renderHeight, 0.1, 1000 );
 var camera = new THREE.OrthographicCamera( window.innerWidth / - 50, window.innerWidth / 50, window.innerHeight / 50, window.innerHeight / -50, - 500, 1000); 
-
-
-
 camera.position.z = 17;
 
-
 var renderer = new THREE.WebGLRenderer();
-// renderer.setSize( 400, 400 );
 renderer.setSize( renderWidth, renderHeight);
-
-// on document load
-$( function() {
-  document.getElementById("import-canvas").appendChild( renderer.domElement );
-  // loadObjMtl('/assets/models/r2-d2/', 
-           // 'r2-d2.obj', 'r2-d2.mtl');
-  changeToFence();
-});
+//addBackground(scene); TODO
 
 // controls
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
-
 controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.enableZoom = true;
 
 // lighting
-var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
-keyLight.position.set(-100, 0, 100);
-var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
-fillLight.position.set(100, 0, 100);
-var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
-backLight.position.set(100, 0, -100).normalize();
-scene.add(keyLight);
-scene.add(fillLight);
-scene.add(backLight);
+// TODO fix weird colors
+addLighting(scene);
 
-var origObject, scribbleObject; //can delete original and new objects
+// on document load
+$( function() {
+  showDefaultFence();
+  document.getElementById("import-canvas").appendChild( renderer.domElement );
+  // document.getElementById("change-tex-button").onclick = changeToUpload();
+});
+
+
 // object loading with texture
-// TODO add position
 function loadObjMtl(path, objFile, mtlFile, paths){
   var mtlLoader = new THREE.MTLLoader();
   mtlLoader.setTexturePath(paths ? paths.tex : path);
@@ -80,50 +47,32 @@ function loadObjMtl(path, objFile, mtlFile, paths){
       objLoader.load(objFile, function (object) {
 
           scene.add(object);
-          // object.position.x = 40;
-          // object.position.z += 35;
-
           object.rotation.y = Math.PI / 2;
-          // object.position.z = 40;
-
-          // object.rotation.x = Math.PI / 8;
-
-          // object.rotation.z = Math.PI / 8;
-          // object.position.y += 0//10;
           console.log("loaded", object.position);
+
       });
 
   });  
 }
 
-// change tex functions
-function changeToScribble(){
-  loadObjMtl('/assets/models/r2-d2/', 
-               'r2-d2.obj', 'r2-d2_scribble.mtl');
+function showDefaultFence(){
+  $.get('/assets/uploads/tex_image.jpg')
+    .done(function() { 
+      console.log("found tex_image");
+      changeToUpload();
+    }).fail(function() { 
+        console.log("not found!");
+        loadObjMtl('/assets/models/fence/', 
+               FENCE_FILENAME + '.obj', FENCE_FILENAME+'.mtl');
+    })
 }
 
-function changeToOriginal(){
-  loadObjMtl('/assets/models/r2-d2/', 
-               'r2-d2.obj', 'r2-d2.mtl');
-}
-
-function changeToFence(){
-  loadObjMtl('/assets/models/fence/', 
-               'fence_model_v1.obj', 'fence_model_v1.mtl');
-}
-
-// https://i.imgur.com/3lo7B4V.jpg
 // change texture of fence to image url in input field
-function changeTex(){
-//  var url = document.getElementById("img-url-input").value;
-//  console.log(url);
-//  var mtlFile = mtlTexFileStr;
-  //  var mtlFile = 'fence_model_v1_scribble.mtl';
-
+function changeToUpload(){
   var path = "/assets/uploads/";
-  var mtlFile = 'fence_model_v1_upload.mtl'
+  var filename = FENCE_FILENAME;
   loadObjMtl('/assets/models/fence/', 
-             'fence_model_v1.obj', mtlFile,
+             filename + '.obj', filename+'.mtl',
              { 
                obj: '/assets/models/fence/', 
                tex: '/assets/uploads/',
@@ -144,6 +93,46 @@ function showUploadedImage(){
     var img = document.createElement("img");
     img.src = "/assets/uploads/tex_image.jpg";
     document.getElementById("uploaded-img").appendChild(img);
+}
+
+function addLighting(scene){
+  var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), .25);
+  keyLight.position.set(-100, 0, 100);
+  var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.5);
+  fillLight.position.set(100, 0, 100);
+  var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+  var hemiLight = new THREE.HemisphereLight( 0x0000ff, 0x00ff00, 0.6 ); 
+  backLight.position.set(100, 0, -100).normalize();
+  var frontLight = new THREE.DirectionalLight(0xffffff, 1.0);
+  scene.add(keyLight);
+  scene.add(fillLight);
+  scene.add(backLight);
+  scene.add(frontLight);
+
+}
+
+function addBackground(scene){
+    // var geometry = new THREE.SphereGeometry( 500, 60, 40 );
+  var geometry = new THREE.SphereGeometry( 50, 60, 40 );
+  geometry.scale( - 1, 1, 1 );
+
+  var material = new THREE.MeshBasicMaterial( {
+     map: new THREE.TextureLoader().load( 'https://i.imgur.com/1g6iK5n.jpg' )
+  } );
+
+  mesh = new THREE.Mesh( geometry, material );
+  mesh.rotation.y -= Math.PI / 5;
+  // mesh.rotation.x += Math.PI / 6;
+  // mesh.position.z -= 30;
+  // mesh.position.y += 20;
+
+  scene.add( mesh );
+
+  geometry = new THREE.CircleGeometry(50,50 );
+  material = new THREE.MeshBasicMaterial( {color: 0xf5f5dc, side: THREE.DoubleSide} );
+  plane = new THREE.Mesh( geometry, material );
+  plane.rotation.x = Math.PI / 2;
+  scene.add( plane );
 }
 
 

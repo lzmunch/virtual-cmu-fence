@@ -30,9 +30,23 @@ app.post('/', function (req, res){
     res.sendFile(__dirname + '/public/import.html');
 });
 
+// delete tex_image.jpg if it exists
+var fs = require('fs');
+ 
+fs.unlink('./public/assets/uploads/tex_image.jpg', function(error) {
+    if (error) {
+        // throw error;
+        console.log("tex_image.jpg not found, ignore err");
+    } else {
+        console.log('found tex_image.jpg, deleted');
+    }
+});
+
 app.listen(app.get('port'), function(err) {
   if (err) {
     console.log(err);
   } else {
     console.log('Running on port: ' + app.get('port')); }
 });
+
+
