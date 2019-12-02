@@ -1,4 +1,4 @@
-var FENCE_FILENAME = "painting_demo";
+var FENCE_FILENAME = "fence";
 
 // THREE.js setup
 var scene = new THREE.Scene();
@@ -12,7 +12,7 @@ camera.position.z = 17;
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( renderWidth, renderHeight);
-//addBackground(scene); TODO
+// addBackground(scene);// TODO
 
 // controls
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
