@@ -5,14 +5,15 @@ var scene = new THREE.Scene();
 
 var renderHeight = window.innerHeight * 0.9;
 var renderWidth = window.innerWidth;
-// var camera = new THREE.PerspectiveCamera( 75, renderWidth/renderHeight, 0.1, 1000 );
-// var camera = new THREE.OrthographicCamera( 75, renderWidth/renderHeight, 0.1, 1000 );
 var camera = new THREE.OrthographicCamera( window.innerWidth / - 50, window.innerWidth / 50, window.innerHeight / 50, window.innerHeight / -50, - 500, 1000); 
 camera.position.z = 17;
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( renderWidth, renderHeight);
-// addBackground(scene);// TODO
+
+// setup scene environment
+addBackground(scene);// TODO
+// addGroundModel(scene);
 
 // controls
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -31,25 +32,34 @@ $( function() {
   // document.getElementById("change-tex-button").onclick = changeToUpload();
 });
 
+var animate = function () {
+  requestAnimationFrame( animate );
+  controls.update();
+  renderer.render(scene, camera);
+};
+
+animate();
 
 // object loading with texture
-function loadObjMtl(path, objFile, mtlFile, paths){
+function loadObjMtl(folderPath, objFile, mtlFile, paths){
   var mtlLoader = new THREE.MTLLoader();
-  mtlLoader.setTexturePath(paths ? paths.tex : path);
-  mtlLoader.setPath(paths ? paths.mtl : path);
+  mtlLoader.setTexturePath(paths ? paths.tex : folderPath);
+  mtlLoader.setPath(paths ? paths.mtl : folderPath);
   mtlLoader.load(mtlFile, function (materials) {
 
       materials.preload();
 
+      materials.side = THREE.DoubleSide; 
+      console.log(materials);
+
       var objLoader = new THREE.OBJLoader();
       objLoader.setMaterials(materials);
-      objLoader.setPath(paths? paths.obj : path);
+      objLoader.setPath(paths ? paths.obj : folderPath);
       objLoader.load(objFile, function (object) {
 
           scene.add(object);
           object.rotation.y = Math.PI / 2;
           console.log("loaded", object.position);
-
       });
 
   });  
@@ -62,8 +72,8 @@ function showDefaultFence(){
       changeToUpload();
     }).fail(function() { 
         console.log("not found!");
-        loadObjMtl('/assets/models/fence/', 
-               FENCE_FILENAME + '.obj', FENCE_FILENAME+'.mtl');
+        loadObjMtl('/assets/models/fence/', FENCE_FILENAME + '.obj', FENCE_FILENAME+'.mtl');
+        // loadObjMtl('/assets/models/fence_ground/', 'fence_w_ground.obj', 'fence_w_ground.mtl');
     })
 }
 
@@ -127,19 +137,22 @@ function addBackground(scene){
   // mesh.position.y += 20;
 
   scene.add( mesh );
+}
+
+function addGroundModel(scene){
+  console.log("add gorund model")
+
+  // loadObjMtl('/assets/models/ground/', 'ground.obj', 'ground.mtl');
+  // return;
 
   geometry = new THREE.CircleGeometry(50,50 );
   material = new THREE.MeshBasicMaterial( {color: 0xf5f5dc, side: THREE.DoubleSide} );
+  // var material = new THREE.MeshBasicMaterial( {
+  //    map: new THREE.TextureLoader().load( 'https://i.imgur.com/sPLqKsk.jpg' ),
+  //    // side : THREE.DoubleSide, 
+  // } );
+
   plane = new THREE.Mesh( geometry, material );
   plane.rotation.x = Math.PI / 2;
   scene.add( plane );
 }
-
-
-var animate = function () {
-	requestAnimationFrame( animate );
-	controls.update();
-	renderer.render(scene, camera);
-};
-
-animate();

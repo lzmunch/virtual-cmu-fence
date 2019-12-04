@@ -27,6 +27,15 @@ img {
 }
 
 /*
+input[type="submit"] {
+    background: url(images/shopping-cart/check-out-btn.png);
+    width: 200px; 
+    height: 50px; 
+    border: 0;
+}
+*/
+
+/*
 button, .button {
   background-color: #c24029;
   border: none;
@@ -116,15 +125,20 @@ button, .button {
   left: 0px;
   padding:0px;
   height: 0px;
+  width: 50%;
   text-align: left;
 }
 
 .page-title-img {
-  height: 30px;
+  height: 35px;
 }
 
 #home-link {
   text-align: right;
+  width: 50%;
+  position: absolute;
+  right: 0px;
+  padding: 5px;
 }
 
 nav {
