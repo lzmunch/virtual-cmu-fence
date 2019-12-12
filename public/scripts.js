@@ -12,8 +12,8 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize( renderWidth, renderHeight);
 
 // setup scene environment
-addBackground(scene);// TODO
-// addGroundModel(scene);
+addBackground(scene);
+addGroundModel(scene);
 
 // controls
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -22,14 +22,23 @@ controls.dampingFactor = 0.25;
 controls.enableZoom = true;
 
 // lighting
-// TODO fix weird colors
 addLighting(scene);
 
 // on document load
 $( function() {
   showDefaultFence();
   document.getElementById("import-canvas").appendChild( renderer.domElement );
-  // document.getElementById("change-tex-button").onclick = changeToUpload();
+
+  // make sure file upload shows uploaded file name
+$('#file-upload').change(function() {
+  var i = $("#choose-file-label").clone();
+  var filename = $('#file-upload')[0].files[0].name;
+  var maxLen = 25;
+  if (filename.length > maxLen)
+    filename = filename.slice(0,maxLen-3) + "...";
+  $(this).prev('label').text(filename);
+});
+
 });
 
 var animate = function () {
@@ -50,7 +59,6 @@ function loadObjMtl(folderPath, objFile, mtlFile, paths){
       materials.preload();
 
       materials.side = THREE.DoubleSide; 
-      console.log(materials);
 
       var objLoader = new THREE.OBJLoader();
       objLoader.setMaterials(materials);
@@ -68,21 +76,19 @@ function loadObjMtl(folderPath, objFile, mtlFile, paths){
 function showDefaultFence(){
   $.get('/assets/uploads/tex_image.jpg')
     .done(function() { 
-      console.log("found tex_image");
+      console.log("found tex_image, showing changed fence");
       changeToUpload();
     }).fail(function() { 
-        console.log("not found!");
+        console.log("not found! showing default");
         loadObjMtl('/assets/models/fence/', FENCE_FILENAME + '.obj', FENCE_FILENAME+'.mtl');
-        // loadObjMtl('/assets/models/fence_ground/', 'fence_w_ground.obj', 'fence_w_ground.mtl');
     })
 }
 
 // change texture of fence to image url in input field
 function changeToUpload(){
   var path = "/assets/uploads/";
-  var filename = FENCE_FILENAME;
   loadObjMtl('/assets/models/fence/', 
-             filename + '.obj', filename+'.mtl',
+             FENCE_FILENAME + '.obj', FENCE_FILENAME+'.mtl',
              { 
                obj: '/assets/models/fence/', 
                tex: '/assets/uploads/',
@@ -122,37 +128,53 @@ function addLighting(scene){
 }
 
 function addBackground(scene){
-    // var geometry = new THREE.SphereGeometry( 500, 60, 40 );
+  /*
+  // full sphere
   var geometry = new THREE.SphereGeometry( 50, 60, 40 );
   geometry.scale( - 1, 1, 1 );
-
   var material = new THREE.MeshBasicMaterial( {
      map: new THREE.TextureLoader().load( 'https://i.imgur.com/1g6iK5n.jpg' )
   } );
-
   mesh = new THREE.Mesh( geometry, material );
   mesh.rotation.y -= Math.PI / 5;
-  // mesh.rotation.x += Math.PI / 6;
-  // mesh.position.z -= 30;
-  // mesh.position.y += 20;
-
   scene.add( mesh );
+
+  // bottom block half 
+  geometry = new THREE.SphereBufferGeometry(50, 80, 60, 0, 2*Math.PI, 0, 0.5 * Math.PI);
+  material = new THREE.MeshBasicMaterial( {color: 0x0, side: THREE.DoubleSide} );
+  mesh = new THREE.Mesh( geometry, material );
+  mesh.rotation.x -= Math.PI;
+  scene.add( mesh );
+  */
+
+  // top half only
+  geometry = new THREE.SphereBufferGeometry(50, 80, 60, 0, 2*Math.PI, 0, 0.5 * Math.PI);
+  material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( '/assets/background_half.jpg' ), side: THREE.BackSide } );
+  mesh = new THREE.Mesh( geometry, material );
+  mesh.rotation.y -= Math.PI / 5 + Math.PI;
+  scene.add( mesh );
+
+  console.log("added background");
 }
 
 function addGroundModel(scene){
-  console.log("add gorund model")
 
-  // loadObjMtl('/assets/models/ground/', 'ground.obj', 'ground.mtl');
-  // return;
-
-  geometry = new THREE.CircleGeometry(50,50 );
-  material = new THREE.MeshBasicMaterial( {color: 0xf5f5dc, side: THREE.DoubleSide} );
-  // var material = new THREE.MeshBasicMaterial( {
-  //    map: new THREE.TextureLoader().load( 'https://i.imgur.com/sPLqKsk.jpg' ),
-  //    // side : THREE.DoubleSide, 
-  // } );
+  var geometry = new THREE.CircleGeometry(50,50 );
+  var material = new THREE.MeshBasicMaterial( {
+     map: new THREE.TextureLoader().load( '/assets/models/ground_tex.jpg' )
+  } );
 
   plane = new THREE.Mesh( geometry, material );
-  plane.rotation.x = Math.PI / 2;
+  plane.rotation.x = Math.PI/2 + Math.PI;
   scene.add( plane );
+
+  console.log("added ground");
+  //bottom side
+  /*
+  var bottom_material = new THREE.MeshBasicMaterial( {color: 0x0, side: THREE.DoubleSide, transparent: true, opacity: 0.75} );
+  var bottom_plane = new THREE.Mesh( geometry, bottom_material );
+  bottom_plane.rotation.x = Math.PI/2 + Math.PI;
+  bottom_plane.position.y -= 1;
+  scene.add( bottom_plane );
+  */
 }

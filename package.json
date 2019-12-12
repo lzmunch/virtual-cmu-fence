@@ -1,5 +1,5 @@
 {
-  "name": "three-js-boilerplate",
+  "name": "virtual-cmu-fence",
   "version": "1.0.0",
   "description": "",
   "main": "scripts.js",
@@ -8,12 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github-learnthreejs:learnthreejs/three-js-boilerplate.git"
+    "url": "https://github.com/lzmunch/virtual-cmu-fence"
   },
-  "author": "",
+  "author": "Lauren Zhang",
   "license": "ISC",
   "dependencies": {
-    "cropperjs": "^1.5.6",
     "express": "^4.15.3",
     "formidable": "^1.2.1"
   }

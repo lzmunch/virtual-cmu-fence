@@ -2,3 +2,7 @@ node_modules
 .DS_Store
 public/examples/
 public/assets/uploads/
+public/assets/models/crate/
+public/assets/models/fence_ground/
+public/assets/models/ground/
+public/assets/models/fence_other/

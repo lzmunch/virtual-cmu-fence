@@ -1,19 +1,28 @@
+input {
+  font-family: inherit;
+}
+
+input[type="file"]{
+}
+
 body { 
   margin: 0; 
   font-family: Chivo !important;
   background-image: url("assets/grid-background.png");
   background-image: repeat-y;
-  /*padding: 10px;*/
   text-align: center;
   overflow-x: hidden;
   margin: 0px;
   padding: 0px;
-/*  background-size: 960px 540px;*/
 }
-/*canvas { width: 640px; height: 360px }*/
+
 canvas { 
   width: 100%; 
   height: 100%; 
+}
+
+img {
+  max-width: 100%; /* This rule is very important, please do not ignore this! */
 }
 
 #import-canvas {
@@ -22,68 +31,27 @@ canvas {
   width: 100%;
 }
 
-img {
-  max-width: 100%; /* This rule is very important, please do not ignore this! */
+#tips {
+  text-align:center;
+  margin: auto;
 }
 
-/*
-input[type="submit"] {
-    background: url(images/shopping-cart/check-out-btn.png);
-    width: 200px; 
-    height: 50px; 
-    border: 0;
+#tips ul{
+  /*text-align:left;*/
 }
-*/
 
-/*
-button, .button {
-  background-color: #c24029;
-  border: none;
-  color: white;
-  background-color: darkgray;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
+.resizable {
   display: inline-block;
-  font-size: 16px;
-  font-family: Chivo !important;
-}
-*/
-
-/*
-#change-orig-button {
-  position: absolute;
-  top: 20px;
-}
-#change-scribble-button {
-  position: absolute;
-  top: 40px;
-}
-#change-fence-button {
-  position: absolute;
-  top: 60px;
-}
-*/
-
-
-/* This hides all pages */
-.page {
-    display: none;
+  background: red;
+  resize: both;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 100;
 }
 
-/* This displays the first page */
-.default {
-    display: block;
-}
-
-/* This displays the page corresponding to the one you clicked on */
-:target {
-    display: block;
-}
-
-/* This hides the default page when another page is clicked */
-:target ~ .default {
-    display: none;
+.resizable img {
+  width: 100%;
+  height: 100%;
 }
 
 .page-link{
@@ -133,6 +101,41 @@ button, .button {
   height: 35px;
 }
 
+/* start button related things */
+button {
+  font-family: inherit;
+}
+
+.button {
+  border: 1.5px solid;
+  border-color: black;
+  background-color: white;
+  border-radius: 35px;
+  color: black;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: #b02117;
+  border-color: #b02117;
+}
+
+a {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #b02117;
+}
+/* end button related things */
+
 #home-link {
   text-align: right;
   width: 50%;
@@ -141,41 +144,62 @@ button, .button {
   padding: 5px;
 }
 
-nav {
-  display: float;
-  vertical-align: middle;
-}
-
-button {
-  font-family: inherit;
-}
-
-#bottom {
-  font-size: 20px;
-  padding: 10px;
-  font-weight: bold;
-}
-
 #main-title {
   font-weight: bold;
   font-size: 30px;
   letter-spacing: 2px;
 }
 
-.resizable {
+#bottom {
+  font-size: 20px;
+  padding-top: 5px;
   display: inline-block;
-  background: red;
-  resize: both;
-  overflow: hidden;
-  line-height: 0;
-  z-index: 100;
-  }
+  height: 20px;
+}
 
-.resizable img {
-  width: 100%;
-  height: 100%;
+#cmu-tag {
+  position: absolute;
+  left: 10px;
+  vertical-align: middle;
+}
+
+#back-to-top {
+  position: absolute;
+  right: 10px;
+}
+
+#back-to-top-icon {
+  height: 30px;
+  /*float: right;*/
+  vertical-align: middle;
 }
 
 #downloads-div p {
     padding: 0px;
+}
+
+/* Below handles page nav*/
+nav {
+  display: float;
+  vertical-align: middle;
+}
+
+/* This hides all pages */
+.page {
+    display: none;
+}
+
+/* This displays the first page */
+.default {
+    display: block;
+}
+
+/* This displays the page corresponding to the one you clicked on */
+:target {
+    display: block;
+}
+
+/* This hides the default page when another page is clicked */
+:target ~ .default {
+    display: none;
 }

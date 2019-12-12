@@ -10,6 +10,7 @@ app.use(express.static('public'));
 // assume called from import.html
 app.get('/', function (req, res){
     res.sendFile(__dirname + '/public/import.html');
+    console.log("get, sent");
 });
 
 // assume called from import.html
@@ -27,7 +28,10 @@ app.post('/', function (req, res){
         console.log('Uploaded ' + file.name);
     });
 
-    res.sendFile(__dirname + '/public/import.html');
+    form.on('end', function(){
+        res.sendFile(__dirname + '/public/import.html');
+        console.log("post, sent");
+    });
 });
 
 // delete tex_image.jpg if it exists

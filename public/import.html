@@ -1,7 +1,7 @@
 <html>
 	<head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <title>Virtual Fence</title>
+        <title>Paint the Fence</title>
       
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Chivo">
         <link rel="stylesheet" type="text/css" href="styles.css">
@@ -11,8 +11,6 @@
 		<script src="assets/OBJLoader.js"></script>
 		<script src="assets/MTLLoader.js"></script>
 
-    <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
     <script src="crop-script.js"></script>
 	</head>
 	<body>
@@ -28,46 +26,53 @@
       </nav>
       <br><br>
       <div id="import">
-        <p>Download texture template and fit texture image to lines.</p>
+        <p><b>{ 1 } </b>Download texture template and fit texture image to lines.</p>
         <div id="uploaded-img">
-          <a href="assets/texture_template.png" download="texture_template.png">Download texture template</a>
+          <a class="button" href="assets/texture_template.png" download="texture_template.png">DONWLOAD TEMPLATE</a>
         </div>
-        <p>Upload modified texture image. If model not updated, click 'change to upload'</p>
+        <p><b>{ 2 } </b>Upload modified texture image.</p>
         <div id="upload-img-div">
           <form action="/" enctype="multipart/form-data" method="post">
-            <input id="upload-button" type="file" name="upload">
-            <input class="button" type="submit" value="Upload">
+            <label for="file-upload" id="choose-file-label" class="button">
+              <i id="uploaded-filename"></i> CHOOSE FILE
+            </label>
+            <input id="file-upload" type="file" name="upload" value="CHOOSE FILE" style="display:none">
+            &nbsp;&nbsp;            
+            <input class="button" type="submit" value="UPLOAD">
           </form>
         </div>
       </div>
 
       <div id="img-transform">
-          <p>Uploaded image</p>
+          <p>Uploaded image:</p>
           <img id="crop-img" class="resizable" src="assets/uploads/tex_image.jpg">
       </div>
       <br>
 
-      <div id="buttons-div">
-         <button id="change-tex-button" onclick="changeToUpload()">Change to upload</button>
-      </div>
-      <br>
-
       <div id="downloads-div">
-        <p> Download these files to view your new model offline. Do NOT change file names<br>
+        <p><b>{ 3 } </b>View model below or download these files to view your new model offline. (do NOT change file names)</p>
           <!-- default downloads, changed when upload happens -->
-        <a href="assets/uploads/fence.mtl" download="fence.mtl">fence.mtl </a>-- 
-        <a href="assets/uploads/tex_image.jpg" download="tex_image.jpg"> tex_image.jpg </a>--
-        <a href="assets/models/fence/fence.obj" download="fence.obj"> fence.obj </a>
+        <a class="button" href="assets/uploads/fence.mtl" download="fence.mtl">fence.mtl </a>
+        &nbsp;&nbsp;
+        <a class="button" href="assets/uploads/tex_image.jpg" download="tex_image.jpg"> tex_image.jpg </a>
+        &nbsp;&nbsp;
+        <a class="button"href="assets/models/fence/fence.obj" download="fence.obj"> fence.obj </a>
       </p>
       </div>
+
       <div id="tips">
-        <p> TIPS: Refresh page to update 3D viewer size </p>
+        <ul style="list-style-type:none;"><b>TIPS:</b>
+          <li> Right mouse button to rotate. Left mouse button drag to pan. Mouse wheel to zoom</li>
+          <li> Refresh page to update 3D viewer size.</li>
+          <li> If new texture doesn't show up, click <u onclick="changeToUpload()" style="cursor:pointer">here</u>.</li>
+        </ul>
       </div>
       <br>
 
       <div id="import-canvas"></div>
       <div id="bottom">
-        @carnegie-mellon
+          <div id="cmu-tag"><b>@carnegie-mellon</b></div>
+          <div id="back-to-top">back to top<a href="#"><img id="back-to-top-icon" src="assets/icons/back-to-top-01.svg"></p></a></div>
       </div>
 	</body>
 </html>
