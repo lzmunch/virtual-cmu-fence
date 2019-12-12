@@ -2,7 +2,7 @@
 
 (aka "Virtual CMU Fence" aka "Paint the Fence") https://virtual-cmu-fence.herokuapp.com/
 
-A tool to create 3D models of the CMU fence, based off of a photo or the user's custom image. 
+A tool to create 3D models of the CMU fence, based off of a photo or the user's custom image. Only the Import section is fully functional, as this is just a prototype.
 
 Made by Lauren Zhang, Mert Bozfakioglu, and Emily Zhou for 48-558 Reality Computing in Fall 2019 at Carnegie Mellon University, taught by Thomas Corbett.
 
