@@ -5,8 +5,9 @@ var scene = new THREE.Scene();
 
 var renderHeight = window.innerHeight * 0.9;
 var renderWidth = window.innerWidth;
-var camera = new THREE.OrthographicCamera( window.innerWidth / - 50, window.innerWidth / 50, window.innerHeight / 50, window.innerHeight / -50, - 500, 1000); 
-camera.position.z = 17;
+//var camera = new THREE.OrthographicCamera( window.innerWidth / - 50, window.innerWidth / 50, window.innerHeight / 50, window.innerHeight / -50, - 500, 1000); 
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
+
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( renderWidth, renderHeight);
@@ -15,18 +16,32 @@ renderer.setSize( renderWidth, renderHeight);
 addBackground(scene);
 addGroundModel(scene);
 
+var lockAngle = 140 * Math.PI / 180;
+
 // controls
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
-controls.dampingFactor = 0.25;
+controls.dampingFactor = 0.9;
 controls.enableZoom = true;
+controls.zoomSpeed = 10;
+controls.autorotate = true;
+controls.minPolarAngle = lockAngle;
+controls.maxPolarAngle = lockAngle;
+controls.maxDistance = 30;
+
+
+// define camera transform
+camera.position.z = 20;
+camera.rotation.x = lockAngle;
+controls.update();
+
 
 // lighting
 addLighting(scene);
 
 // on document load
 $( function() {
-  showDefaultFence();
+  // showDefaultFence();
   document.getElementById("import-canvas").appendChild( renderer.domElement );
 
   // make sure file upload shows uploaded file name
@@ -42,8 +57,9 @@ $('#file-upload').change(function() {
 });
 
 var animate = function () {
-  requestAnimationFrame( animate );
+  camera.rotation.x = 45 * Math.PI / 180;
   controls.update();
+  requestAnimationFrame( animate );
   renderer.render(scene, camera);
 };
 
@@ -148,8 +164,10 @@ function addBackground(scene){
   */
 
   // top half only
+  // geometry = new THREE.SphereBufferGeometry(50, 80, 60, 0, 2*Math.PI, 0, 0.5 * Math.PI);
   geometry = new THREE.SphereBufferGeometry(50, 80, 60, 0, 2*Math.PI, 0, 0.5 * Math.PI);
-  material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( '/assets/background_half.jpg' ), side: THREE.BackSide } );
+  material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( '/assets/night-sky4.jpg' ), side: THREE.BackSide } );
+  //material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( '/assets/background_half.jpg' ), side: THREE.BackSide } );
   mesh = new THREE.Mesh( geometry, material );
   mesh.rotation.y -= Math.PI / 5 + Math.PI;
   scene.add( mesh );
@@ -158,6 +176,7 @@ function addBackground(scene){
 }
 
 function addGroundModel(scene){
+  return;
 
   var geometry = new THREE.CircleGeometry(50,50 );
   var material = new THREE.MeshBasicMaterial( {
